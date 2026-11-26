@@ -918,9 +918,8 @@
     (function () {
       'use strict';
 
-      // [선택] 코드에 직접 웹 앱 URL을 고정하려면 아래 따옴표 안에 붙여넣으세요.
-      // 비워두어도 ?api=URL 접속 또는 화면 상단 [시트 연결] 버튼으로 설정 가능합니다.
-      var DEFAULT_GAS_API_URL = '';
+      // 고정된 Google Apps Script 웹 앱 API 주소 (?api= 쿼리로 임시 재지정 가능)
+      var DEFAULT_GAS_API_URL = 'https://script.google.com/macros/s/AKfycby_BNI89e4ER03u9B2JRlL5cM8y8gpPjzBetjRRfELx0828Gc_ZNW5H6NWNeX7XB9qwwQ/exec';
 
       var STORAGE_KEY = 'gyeongwa_display_cache_v1';
       var API_URL_STORAGE_KEY = 'gyeongwa_gas_api_url_v1';
