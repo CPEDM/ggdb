@@ -210,26 +210,53 @@
     }
 
     .status-card {
+      position: relative;
+      overflow: hidden;
       width: 100%;
       max-width: 68rem;
       border-radius: 1.5rem;
       padding: 1.35rem 2.2rem 1.55rem;
       text-align: center;
-      border: 2px solid transparent;
-      -webkit-transition: background-color 0.4s ease, border-color 0.4s ease;
-      transition: background-color 0.4s ease, border-color 0.4s ease;
+      border: 4px solid transparent;
+      -webkit-transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card-shimmer {
+      display: none;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 48%;
+      height: 100%;
+      background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.34) 50%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.34) 50%, rgba(255,255,255,0) 100%);
+      -webkit-transform: translate3d(-160%, 0, 0) skewX(-22deg);
+      transform: translate3d(-160%, 0, 0) skewX(-22deg);
+    }
+
+    body.theme-dark .card-shimmer {
+      background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.16) 50%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.16) 50%, rgba(255,255,255,0) 100%);
+    }
+
+    body.anim-on.anim-status-shimmer .card-shimmer {
+      display: block;
+      -webkit-animation: shimmerSweep 3.4s ease-in-out infinite;
+      animation: shimmerSweep 3.4s ease-in-out infinite;
     }
 
     body.theme-light .status-card {
       background-color: rgba(255, 255, 255, 0.94);
-      border-color: rgba(28, 25, 23, 0.1);
-      box-shadow: 0 12px 32px rgba(28, 25, 23, 0.08);
+      border-color: rgba(28, 25, 23, 0.14);
+      box-shadow: 0 12px 32px rgba(28, 25, 23, 0.1);
     }
 
     body.theme-dark .status-card {
-      background-color: rgba(18, 24, 36, 0.92);
-      border-color: rgba(148, 163, 184, 0.18);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      background-color: rgba(18, 24, 36, 0.94);
+      border-color: rgba(148, 163, 184, 0.24);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.5);
     }
 
     body.theme-blackout .status-card {
@@ -262,27 +289,57 @@
     }
 
     .status-pill {
-      display: inline-block;
-      padding: 0.45rem 1.2rem;
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      padding: 0.48rem 1.25rem;
       border-radius: 999px;
-      font-size: 0.98rem;
+      font-size: 1.02rem;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .status-dot {
+    .status-dot-wrap {
+      position: relative;
       display: inline-block;
-      width: 0.65rem;
-      height: 0.65rem;
-      border-radius: 50%;
-      margin-right: 0.5rem;
+      width: 0.82rem;
+      height: 0.82rem;
+      margin-right: 0.62rem;
       vertical-align: middle;
+    }
+
+    .status-dot {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    .status-dot-ring {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
     }
 
     .anim-on .status-dot {
       -webkit-animation: dotPulse 1.8s ease-in-out infinite;
       animation: dotPulse 1.8s ease-in-out infinite;
+    }
+
+    .anim-on .status-dot-ring {
+      display: block;
+      -webkit-animation: livePing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+      animation: livePing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
     }
 
     /* 상태 카드 안으로 이동한 날짜 & 시간 표시 영역 */
@@ -373,14 +430,34 @@
       animation: fadeSlideIn 0.55s ease-out;
     }
 
+    .anim-on.anim-status-bounce .status-main {
+      -webkit-animation: statusBounce 2.3s ease-in-out infinite;
+      animation: statusBounce 2.3s ease-in-out infinite;
+    }
+
+    .anim-on.anim-status-neon .status-main {
+      -webkit-animation: neonTextPulse 2.1s ease-in-out infinite;
+      animation: neonTextPulse 2.1s ease-in-out infinite;
+    }
+
+    .anim-on.anim-status-shimmer .status-main {
+      -webkit-animation: statusBreath 3.0s ease-in-out infinite;
+      animation: statusBreath 3.0s ease-in-out infinite;
+    }
+
+    .anim-on.anim-status-blink .status-main {
+      -webkit-animation: urgentBlink 1.3s ease-in-out infinite;
+      animation: urgentBlink 1.3s ease-in-out infinite;
+    }
+
     .anim-on.anim-status-pulse .status-main {
-      -webkit-animation: statusBreath 3.4s ease-in-out infinite;
-      animation: statusBreath 3.4s ease-in-out infinite;
+      -webkit-animation: statusBreath 2.8s ease-in-out infinite;
+      animation: statusBreath 2.8s ease-in-out infinite;
     }
 
     .anim-on.anim-status-fade .status-main {
-      -webkit-animation: statusSoftFade 4s ease-in-out infinite;
-      animation: statusSoftFade 4s ease-in-out infinite;
+      -webkit-animation: statusSoftFade 3.4s ease-in-out infinite;
+      animation: statusSoftFade 3.4s ease-in-out infinite;
     }
 
     .status-sub {
@@ -417,72 +494,84 @@
       opacity: 0.45;
     }
 
-    /* 상태별 색상 매핑 (라이트) */
+    /* 상태별 색상 매핑 (라이트: 고선명 4px 테두리 + 컬러 틴트 + 발광) */
     body.theme-light.st-open .status-pill { background-color: #DCFCE7; color: #065F46; }
-    body.theme-light.st-open .status-dot { background-color: #059669; }
+    body.theme-light.st-open .status-dot, body.theme-light.st-open .status-dot-ring { background-color: #059669; }
     body.theme-light.st-open .status-main { color: #047857; }
-    body.theme-light.st-open .status-card { border-color: rgba(5, 150, 105, 0.35); }
+    body.theme-light.st-open .status-card { background-color: #F4FDF7; border-color: #10B981; box-shadow: 0 14px 36px rgba(16, 185, 129, 0.22); }
+    body.theme-light.st-open.anim-status-neon .status-main { text-shadow: 0 0 22px rgba(16, 185, 129, 0.45); }
 
     body.theme-light.st-lastorder .status-pill { background-color: #FEF3C7; color: #92400E; }
-    body.theme-light.st-lastorder .status-dot { background-color: #D97706; }
+    body.theme-light.st-lastorder .status-dot, body.theme-light.st-lastorder .status-dot-ring { background-color: #D97706; }
     body.theme-light.st-lastorder .status-main { color: #B45309; }
-    body.theme-light.st-lastorder .status-card { border-color: rgba(217, 119, 6, 0.4); }
+    body.theme-light.st-lastorder .status-card { background-color: #FFFBEB; border-color: #F59E0B; box-shadow: 0 14px 36px rgba(245, 158, 11, 0.24); }
+    body.theme-light.st-lastorder.anim-status-neon .status-main { text-shadow: 0 0 22px rgba(245, 158, 11, 0.45); }
 
     body.theme-light.st-break .status-pill { background-color: #DBEAFE; color: #1E40AF; }
-    body.theme-light.st-break .status-dot { background-color: #2563EB; }
+    body.theme-light.st-break .status-dot, body.theme-light.st-break .status-dot-ring { background-color: #2563EB; }
     body.theme-light.st-break .status-main { color: #1D4ED8; }
-    body.theme-light.st-break .status-card { border-color: rgba(37, 99, 235, 0.35); }
+    body.theme-light.st-break .status-card { background-color: #F4F8FF; border-color: #3B82F6; box-shadow: 0 14px 36px rgba(59, 130, 246, 0.22); }
+    body.theme-light.st-break.anim-status-neon .status-main { text-shadow: 0 0 22px rgba(59, 130, 246, 0.45); }
 
     body.theme-light.st-soldout .status-pill { background-color: #FEE2E2; color: #991B1B; }
-    body.theme-light.st-soldout .status-dot { background-color: #DC2626; }
+    body.theme-light.st-soldout .status-dot, body.theme-light.st-soldout .status-dot-ring { background-color: #DC2626; }
     body.theme-light.st-soldout .status-main { color: #B91C1C; }
-    body.theme-light.st-soldout .status-card { border-color: rgba(220, 38, 38, 0.4); }
+    body.theme-light.st-soldout .status-card { background-color: #FEF5F5; border-color: #EF4444; box-shadow: 0 14px 36px rgba(239, 68, 68, 0.26); }
+    body.theme-light.st-soldout.anim-status-neon .status-main { text-shadow: 0 0 22px rgba(239, 68, 68, 0.48); }
 
     body.theme-light.st-holiday .status-pill { background-color: #F3E8FF; color: #6B21A8; }
-    body.theme-light.st-holiday .status-dot { background-color: #9333EA; }
+    body.theme-light.st-holiday .status-dot, body.theme-light.st-holiday .status-dot-ring { background-color: #9333EA; }
     body.theme-light.st-holiday .status-main { color: #7E22CE; }
-    body.theme-light.st-holiday .status-card { border-color: rgba(147, 51, 234, 0.35); }
+    body.theme-light.st-holiday .status-card { background-color: #FAF5FF; border-color: #A855F7; box-shadow: 0 14px 36px rgba(168, 85, 247, 0.22); }
+    body.theme-light.st-holiday.anim-status-neon .status-main { text-shadow: 0 0 22px rgba(168, 85, 247, 0.45); }
 
     body.theme-light.st-preopen .status-pill { background-color: #FEF3C7; color: #78350F; }
-    body.theme-light.st-preopen .status-dot { background-color: #D97706; }
+    body.theme-light.st-preopen .status-dot, body.theme-light.st-preopen .status-dot-ring { background-color: #D97706; }
     body.theme-light.st-preopen .status-main { color: #92400E; }
+    body.theme-light.st-preopen .status-card { background-color: #FFFDF5; border-color: #F59E0B; }
 
     body.theme-light.st-closed .status-pill { background-color: #E7E5E4; color: #44403C; }
-    body.theme-light.st-closed .status-dot { background-color: #78716C; }
+    body.theme-light.st-closed .status-dot, body.theme-light.st-closed .status-dot-ring { background-color: #78716C; }
     body.theme-light.st-closed .status-main { color: #57534E; }
 
-    /* 상태별 색상 매핑 (다크) */
-    body.theme-dark.st-open .status-pill { background-color: rgba(16, 185, 129, 0.18); color: #6EE7B7; }
-    body.theme-dark.st-open .status-dot { background-color: #34D399; }
+    /* 상태별 색상 매핑 (다크: 고선명 4px 테두리 + 컬러 틴트 + 네온 발광) */
+    body.theme-dark.st-open .status-pill { background-color: rgba(16, 185, 129, 0.24); color: #6EE7B7; }
+    body.theme-dark.st-open .status-dot, body.theme-dark.st-open .status-dot-ring { background-color: #34D399; }
     body.theme-dark.st-open .status-main { color: #34D399; }
-    body.theme-dark.st-open .status-card { border-color: rgba(52, 211, 153, 0.38); }
+    body.theme-dark.st-open .status-card { background-color: rgba(12, 34, 28, 0.92); border-color: rgba(52, 211, 153, 0.72); box-shadow: 0 0 42px rgba(16, 185, 129, 0.25); }
+    body.theme-dark.st-open.anim-status-neon .status-main { text-shadow: 0 0 28px rgba(52, 211, 153, 0.72); }
 
-    body.theme-dark.st-lastorder .status-pill { background-color: rgba(245, 158, 11, 0.2); color: #FCD34D; }
-    body.theme-dark.st-lastorder .status-dot { background-color: #FBBF24; }
+    body.theme-dark.st-lastorder .status-pill { background-color: rgba(245, 158, 11, 0.24); color: #FCD34D; }
+    body.theme-dark.st-lastorder .status-dot, body.theme-dark.st-lastorder .status-dot-ring { background-color: #FBBF24; }
     body.theme-dark.st-lastorder .status-main { color: #FBBF24; }
-    body.theme-dark.st-lastorder .status-card { border-color: rgba(251, 191, 36, 0.38); }
+    body.theme-dark.st-lastorder .status-card { background-color: rgba(38, 28, 12, 0.92); border-color: rgba(251, 191, 36, 0.72); box-shadow: 0 0 42px rgba(245, 158, 11, 0.25); }
+    body.theme-dark.st-lastorder.anim-status-neon .status-main { text-shadow: 0 0 28px rgba(251, 191, 36, 0.72); }
 
-    body.theme-dark.st-break .status-pill { background-color: rgba(59, 130, 246, 0.2); color: #93C5FD; }
-    body.theme-dark.st-break .status-dot { background-color: #60A5FA; }
+    body.theme-dark.st-break .status-pill { background-color: rgba(59, 130, 246, 0.24); color: #93C5FD; }
+    body.theme-dark.st-break .status-dot, body.theme-dark.st-break .status-dot-ring { background-color: #60A5FA; }
     body.theme-dark.st-break .status-main { color: #60A5FA; }
-    body.theme-dark.st-break .status-card { border-color: rgba(96, 165, 250, 0.38); }
+    body.theme-dark.st-break .status-card { background-color: rgba(14, 26, 48, 0.92); border-color: rgba(96, 165, 250, 0.72); box-shadow: 0 0 42px rgba(59, 130, 246, 0.25); }
+    body.theme-dark.st-break.anim-status-neon .status-main { text-shadow: 0 0 28px rgba(96, 165, 250, 0.72); }
 
-    body.theme-dark.st-soldout .status-pill { background-color: rgba(239, 68, 68, 0.2); color: #FCA5A5; }
-    body.theme-dark.st-soldout .status-dot { background-color: #F87171; }
+    body.theme-dark.st-soldout .status-pill { background-color: rgba(239, 68, 68, 0.24); color: #FCA5A5; }
+    body.theme-dark.st-soldout .status-dot, body.theme-dark.st-soldout .status-dot-ring { background-color: #F87171; }
     body.theme-dark.st-soldout .status-main { color: #F87171; }
-    body.theme-dark.st-soldout .status-card { border-color: rgba(248, 113, 113, 0.42); }
+    body.theme-dark.st-soldout .status-card { background-color: rgba(44, 14, 18, 0.92); border-color: rgba(248, 113, 113, 0.76); box-shadow: 0 0 44px rgba(239, 68, 68, 0.28); }
+    body.theme-dark.st-soldout.anim-status-neon .status-main { text-shadow: 0 0 28px rgba(248, 113, 113, 0.75); }
 
-    body.theme-dark.st-holiday .status-pill { background-color: rgba(168, 85, 247, 0.22); color: #D8B4FE; }
-    body.theme-dark.st-holiday .status-dot { background-color: #C084FC; }
+    body.theme-dark.st-holiday .status-pill { background-color: rgba(168, 85, 247, 0.24); color: #D8B4FE; }
+    body.theme-dark.st-holiday .status-dot, body.theme-dark.st-holiday .status-dot-ring { background-color: #C084FC; }
     body.theme-dark.st-holiday .status-main { color: #C084FC; }
-    body.theme-dark.st-holiday .status-card { border-color: rgba(192, 132, 252, 0.38); }
+    body.theme-dark.st-holiday .status-card { background-color: rgba(30, 16, 48, 0.92); border-color: rgba(192, 132, 252, 0.72); box-shadow: 0 0 42px rgba(168, 85, 247, 0.25); }
+    body.theme-dark.st-holiday.anim-status-neon .status-main { text-shadow: 0 0 28px rgba(192, 132, 252, 0.72); }
 
-    body.theme-dark.st-preopen .status-pill { background-color: rgba(245, 158, 11, 0.18); color: #FDE68A; }
-    body.theme-dark.st-preopen .status-dot { background-color: #FBBF24; }
+    body.theme-dark.st-preopen .status-pill { background-color: rgba(245, 158, 11, 0.2); color: #FDE68A; }
+    body.theme-dark.st-preopen .status-dot, body.theme-dark.st-preopen .status-dot-ring { background-color: #FBBF24; }
     body.theme-dark.st-preopen .status-main { color: #FDE68A; }
+    body.theme-dark.st-preopen .status-card { border-color: rgba(251, 191, 36, 0.45); }
 
     body.theme-dark.st-closed .status-pill { background-color: rgba(148, 163, 184, 0.16); color: #CBD5E1; }
-    body.theme-dark.st-closed .status-dot { background-color: #94A3B8; }
+    body.theme-dark.st-closed .status-dot, body.theme-dark.st-closed .status-dot-ring { background-color: #94A3B8; }
     body.theme-dark.st-closed .status-main { color: #94A3B8; }
 
     /* ===== 하단 공지 & QR 영역 (화면 밖 잘림 방지 고정) ===== */
@@ -534,18 +623,18 @@
       -webkit-flex: 0 0 auto;
       flex: 0 0 auto;
       display: inline-block;
-      font-size: 0.92rem;
-      font-weight: 800;
+      font-size: 0.96rem;
+      font-weight: 900;
       letter-spacing: 0.06em;
-      padding: 0.28rem 0.72rem;
-      border-radius: 0.5rem;
-      background-color: rgba(217, 119, 6, 0.16);
-      color: #B45309;
+      padding: 0.32rem 0.82rem;
+      border-radius: 0.55rem;
+      background-color: #D97706;
+      color: #FFFFFF;
     }
 
     body.theme-dark .notice-label {
-      background-color: rgba(251, 191, 36, 0.18);
-      color: #FCD34D;
+      background-color: #F59E0B;
+      color: #090B10;
     }
 
     .notice-viewport {
@@ -603,6 +692,62 @@
     .anim-on .notice-text.mode-float {
       -webkit-animation: gentleFloat 3.6s ease-in-out infinite;
       animation: gentleFloat 3.6s ease-in-out infinite;
+    }
+
+    /* 위로 롤링 순환 모드 */
+    .notice-text.mode-roll {
+      white-space: pre-line;
+      text-align: left;
+    }
+
+    .notice-text.mode-roll.is-rolling-out {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+
+    .notice-text.mode-roll.is-rolling-ready {
+      -webkit-transition: none;
+      transition: none;
+      opacity: 0;
+      -webkit-transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+    }
+
+    .anim-on .notice-text.mode-roll-single {
+      -webkit-animation: gentleFloat 3.2s ease-in-out infinite;
+      animation: gentleFloat 3.2s ease-in-out infinite;
+    }
+
+    /* 줌 인 강조 모드 */
+    .notice-text.mode-zoom {
+      white-space: pre-line;
+      text-align: left;
+    }
+
+    .notice-text.mode-zoom.is-zooming-out {
+      opacity: 0;
+      -webkit-transform: scale3d(0.9, 0.9, 1);
+      transform: scale3d(0.9, 0.9, 1);
+    }
+
+    .anim-on .notice-text.mode-zoom-single {
+      -webkit-animation: zoomAttention 3.2s ease-in-out infinite;
+      animation: zoomAttention 3.2s ease-in-out infinite;
+    }
+
+    /* 타자기 모드 */
+    .notice-text.mode-typewriter {
+      white-space: pre-line;
+      text-align: left;
+    }
+
+    .type-cursor {
+      display: inline-block;
+      margin-left: 0.12rem;
+      font-weight: 900;
+      -webkit-animation: colonBlink 0.75s steps(2, start) infinite;
+      animation: colonBlink 0.75s steps(2, start) infinite;
     }
 
     /* 정적 모드 */
@@ -780,10 +925,72 @@
     }
 
     @-webkit-keyframes statusBreath {
+      0%, 100% { -webkit-transform: scale3d(1, 1, 1) translate3d(0, 0, 0); opacity: 1; }
+      50%      { -webkit-transform: scale3d(1.05, 1.05, 1) translate3d(0, -3px, 0); opacity: 0.92; }
+    }
+    @keyframes statusBreath {
+      0%, 100% { transform: scale3d(1, 1, 1) translate3d(0, 0, 0); opacity: 1; }
+      50%      { transform: scale3d(1.05, 1.05, 1) translate3d(0, -3px, 0); opacity: 0.92; }
+    }
+
+    @-webkit-keyframes statusBounce {
+      0%, 100% { -webkit-transform: scale3d(1, 1, 1) translate3d(0, 0, 0); }
+      30%      { -webkit-transform: scale3d(1.08, 1.08, 1) translate3d(0, -7px, 0); }
+      55%      { -webkit-transform: scale3d(0.98, 0.98, 1) translate3d(0, 2px, 0); }
+      75%      { -webkit-transform: scale3d(1.03, 1.03, 1) translate3d(0, -3px, 0); }
+    }
+    @keyframes statusBounce {
+      0%, 100% { transform: scale3d(1, 1, 1) translate3d(0, 0, 0); }
+      30%      { transform: scale3d(1.08, 1.08, 1) translate3d(0, -7px, 0); }
+      55%      { transform: scale3d(0.98, 0.98, 1) translate3d(0, 2px, 0); }
+      75%      { transform: scale3d(1.03, 1.03, 1) translate3d(0, -3px, 0); }
+    }
+
+    @-webkit-keyframes neonTextPulse {
+      0%, 100% { -webkit-transform: scale3d(1, 1, 1); opacity: 1; }
+      50%      { -webkit-transform: scale3d(1.04, 1.04, 1); opacity: 0.84; }
+    }
+    @keyframes neonTextPulse {
+      0%, 100% { transform: scale3d(1, 1, 1); opacity: 1; }
+      50%      { transform: scale3d(1.04, 1.04, 1); opacity: 0.84; }
+    }
+
+    @-webkit-keyframes urgentBlink {
+      0%, 100% { -webkit-transform: scale3d(1.04, 1.04, 1); opacity: 1; }
+      50%      { -webkit-transform: scale3d(0.97, 0.97, 1); opacity: 0.32; }
+    }
+    @keyframes urgentBlink {
+      0%, 100% { transform: scale3d(1.04, 1.04, 1); opacity: 1; }
+      50%      { transform: scale3d(0.97, 0.97, 1); opacity: 0.32; }
+    }
+
+    @-webkit-keyframes shimmerSweep {
+      0%   { -webkit-transform: translate3d(-160%, 0, 0) skewX(-22deg); }
+      45%  { -webkit-transform: translate3d(340%, 0, 0) skewX(-22deg); }
+      100% { -webkit-transform: translate3d(340%, 0, 0) skewX(-22deg); }
+    }
+    @keyframes shimmerSweep {
+      0%   { transform: translate3d(-160%, 0, 0) skewX(-22deg); }
+      45%  { transform: translate3d(340%, 0, 0) skewX(-22deg); }
+      100% { transform: translate3d(340%, 0, 0) skewX(-22deg); }
+    }
+
+    @-webkit-keyframes livePing {
+      0%   { -webkit-transform: scale3d(1, 1, 1); opacity: 0.78; }
+      80%  { -webkit-transform: scale3d(2.5, 2.5, 1); opacity: 0; }
+      100% { -webkit-transform: scale3d(2.5, 2.5, 1); opacity: 0; }
+    }
+    @keyframes livePing {
+      0%   { transform: scale3d(1, 1, 1); opacity: 0.78; }
+      80%  { transform: scale3d(2.5, 2.5, 1); opacity: 0; }
+      100% { transform: scale3d(2.5, 2.5, 1); opacity: 0; }
+    }
+
+    @-webkit-keyframes zoomAttention {
       0%, 100% { -webkit-transform: scale3d(1, 1, 1); opacity: 1; }
       50%      { -webkit-transform: scale3d(1.03, 1.03, 1); opacity: 0.88; }
     }
-    @keyframes statusBreath {
+    @keyframes zoomAttention {
       0%, 100% { transform: scale3d(1, 1, 1); opacity: 1; }
       50%      { transform: scale3d(1.03, 1.03, 1); opacity: 0.88; }
     }
@@ -906,9 +1113,13 @@
       <!-- 중앙 상태 카드 (현재 날짜/시간 통합 + 대형 상태 문구) -->
       <main id="heroWrap" class="hero-wrap">
         <section id="statusCard" class="status-card">
+          <div class="card-shimmer"></div>
           <div id="statusMetaRow" class="status-meta-row">
             <div class="status-pill">
-              <span class="status-dot"></span>
+              <span class="status-dot-wrap">
+                <span class="status-dot"></span>
+                <span class="status-dot-ring"></span>
+              </span>
               <span id="statusEn">NOW OPEN</span>
             </div>
             <div id="clockBox" class="clock-inline">
@@ -1016,7 +1227,7 @@
         holidayMsg: '매장 사정으로 오늘 하루 쉬어갑니다. 양해 부탁드립니다.',
 
         themeMode: '자동(주간 라이트 / 야간 다크)',
-        statusAnimation: '숨쉬기 펄스',
+        statusAnimation: '시선 집중 바운스',
         noticeAnimation: '흐르는 티커(마퀴)',
         fontScale: '1.0',
         qrUrl: '',
@@ -1033,6 +1244,8 @@
       var noticeLines = [];
       var noticeLineIndex = 0;
       var noticeFadeTimer = null;
+      var noticeStepTimer = null;
+      var noticeTypeTimer = null;
       var pollTimer = null;
       var toastTimer = null;
       var statusEnterTimer = null;
@@ -1453,9 +1666,14 @@
       function resolveStatusAnimClass(cfg) {
         if (!cfg.animEnabled) return 'anim-status-none';
         var sa = String(cfg.statusAnimation || '');
+        if (sa.indexOf('바운스') !== -1) return 'anim-status-bounce';
+        if (sa.indexOf('네온') !== -1 || sa.indexOf('글로우') !== -1) return 'anim-status-neon';
+        if (sa.indexOf('빛') !== -1 || sa.indexOf('쉬머') !== -1) return 'anim-status-shimmer';
+        if (sa.indexOf('점멸') !== -1 || sa.indexOf('깜빡') !== -1) return 'anim-status-blink';
         if (sa.indexOf('페이드') !== -1) return 'anim-status-fade';
         if (sa.indexOf('정적') !== -1) return 'anim-status-none';
-        return 'anim-status-pulse';
+        if (sa.indexOf('숨쉬기') !== -1 || sa.indexOf('펄스') !== -1) return 'anim-status-pulse';
+        return 'anim-status-bounce';
       }
 
       function renderNotice(cfg) {
@@ -1476,7 +1694,10 @@
         var mode = 'ticker';
         if (cfg.animEnabled) {
           var na = String(cfg.noticeAnimation || '');
-          if (na.indexOf('교차') !== -1) mode = 'fade';
+          if (na.indexOf('롤링') !== -1 || na.indexOf('위로') !== -1) mode = 'roll';
+          else if (na.indexOf('타자기') !== -1 || na.indexOf('타이핑') !== -1) mode = 'typewriter';
+          else if (na.indexOf('줌') !== -1) mode = 'zoom';
+          else if (na.indexOf('교차') !== -1 || na.indexOf('페이드') !== -1) mode = 'fade';
           else if (na.indexOf('부유') !== -1) mode = 'float';
           else if (na.indexOf('정적') !== -1) mode = 'none';
         } else {
@@ -1502,13 +1723,81 @@
         if (mode === 'ticker') {
           noticeEl.className = 'notice-text mode-ticker';
           noticeEl.textContent = lines.join('   ·   ');
-          setTimeout(function () {
+          noticeStepTimer = setTimeout(function () {
             var boxW = noticeViewport.offsetWidth || 600;
             var txtW = noticeEl.offsetWidth || 400;
-            var sec = Math.max(12, Math.round((boxW + txtW) / 78));
+            var sec = Math.max(11, Math.round((boxW + txtW) / 86));
             noticeEl.style.webkitAnimationDuration = sec + 's';
             noticeEl.style.animationDuration = sec + 's';
           }, 30);
+        } else if (mode === 'roll') {
+          noticeLines = lines;
+          noticeLineIndex = 0;
+          noticeEl.textContent = noticeLines[0];
+          if (noticeLines.length > 1) {
+            noticeEl.className = 'notice-text mode-roll';
+            noticeFadeTimer = setInterval(function () {
+              noticeEl.className = 'notice-text mode-roll is-rolling-out';
+              noticeStepTimer = setTimeout(function () {
+                noticeLineIndex = (noticeLineIndex + 1) % noticeLines.length;
+                noticeEl.className = 'notice-text mode-roll is-rolling-ready';
+                noticeEl.textContent = noticeLines[noticeLineIndex];
+                void noticeEl.offsetWidth;
+                noticeEl.className = 'notice-text mode-roll';
+              }, 360);
+            }, 4500);
+          } else {
+            noticeEl.className = 'notice-text mode-roll mode-roll-single';
+          }
+        } else if (mode === 'zoom') {
+          noticeLines = lines;
+          noticeLineIndex = 0;
+          noticeEl.textContent = noticeLines[0];
+          if (noticeLines.length > 1) {
+            noticeEl.className = 'notice-text mode-zoom';
+            noticeFadeTimer = setInterval(function () {
+              noticeEl.className = 'notice-text mode-zoom is-zooming-out';
+              noticeStepTimer = setTimeout(function () {
+                noticeLineIndex = (noticeLineIndex + 1) % noticeLines.length;
+                noticeEl.textContent = noticeLines[noticeLineIndex];
+                noticeEl.className = 'notice-text mode-zoom';
+              }, 360);
+            }, 4500);
+          } else {
+            noticeEl.className = 'notice-text mode-zoom mode-zoom-single';
+          }
+        } else if (mode === 'typewriter') {
+          noticeLines = lines;
+          noticeLineIndex = 0;
+          noticeEl.className = 'notice-text mode-typewriter';
+          var textSpan = document.createElement('span');
+          var cursorSpan = document.createElement('span');
+          cursorSpan.className = 'type-cursor';
+          cursorSpan.textContent = '|';
+          noticeEl.innerHTML = '';
+          noticeEl.appendChild(textSpan);
+          noticeEl.appendChild(cursorSpan);
+
+          var charPos = 0;
+          function runTypeLoop() {
+            var targetStr = noticeLines[noticeLineIndex] || '';
+            charPos = 0;
+            textSpan.textContent = '';
+            if (noticeTypeTimer) clearInterval(noticeTypeTimer);
+            noticeTypeTimer = setInterval(function () {
+              charPos += 1;
+              textSpan.textContent = targetStr.substring(0, charPos);
+              if (charPos >= targetStr.length) {
+                clearInterval(noticeTypeTimer);
+                noticeTypeTimer = null;
+                noticeStepTimer = setTimeout(function () {
+                  noticeLineIndex = (noticeLineIndex + 1) % noticeLines.length;
+                  runTypeLoop();
+                }, 3200);
+              }
+            }, 65);
+          }
+          runTypeLoop();
         } else if (mode === 'fade') {
           noticeLines = lines;
           noticeLineIndex = 0;
@@ -1517,7 +1806,7 @@
             noticeEl.className = 'notice-text mode-fade';
             noticeFadeTimer = setInterval(function () {
               noticeEl.className = 'notice-text mode-fade is-fading-out';
-              setTimeout(function () {
+              noticeStepTimer = setTimeout(function () {
                 noticeLineIndex = (noticeLineIndex + 1) % noticeLines.length;
                 noticeEl.textContent = noticeLines[noticeLineIndex];
                 noticeEl.className = 'notice-text mode-fade';
@@ -1539,6 +1828,14 @@
         if (noticeFadeTimer) {
           clearInterval(noticeFadeTimer);
           noticeFadeTimer = null;
+        }
+        if (noticeStepTimer) {
+          clearTimeout(noticeStepTimer);
+          noticeStepTimer = null;
+        }
+        if (noticeTypeTimer) {
+          clearInterval(noticeTypeTimer);
+          noticeTypeTimer = null;
         }
       }
 
